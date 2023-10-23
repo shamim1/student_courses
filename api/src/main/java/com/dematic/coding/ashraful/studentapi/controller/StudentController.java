@@ -124,10 +124,11 @@ public class StudentController {
 
     // -----------------------------------------------------------------------------------------
     @GetMapping("/students/{studentId}/courses")
-    public ResponseEntity<Map<String, List<Course>>> getStudentCourses(@PathVariable Long studentId) {
+    public ResponseEntity<?> getStudentCourses(@PathVariable Long studentId) {
         Optional<Student> student = studentEnrollmentReadService.findByStudentId(studentId);
         if (student.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            return new ResponseEntity<>("Student not found",
+                    HttpStatus.NOT_FOUND);
         }
 
         List<Enrollment> studentEnrollments = studentEnrollmentReadService.
