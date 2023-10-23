@@ -1,7 +1,7 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://db:5432/university_courses
+    url: jdbc:postgresql://db:5432/student_courses
     username: ashraful
     password: secretpassword
     driver-class-name: org.postgresql.Driver
