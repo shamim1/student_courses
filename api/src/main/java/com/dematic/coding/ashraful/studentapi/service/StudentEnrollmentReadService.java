@@ -33,12 +33,10 @@ public class StudentEnrollmentReadService {
         return studentRepository.findAll();
     }
 
-    // Note: Implementing paging or any sort of restriction of feting data is considered as enhancement.
     public List<Course> getCourseList(){
         return courseRepository.findAll();
     }
 
-    // Note: Implementing paging or any sort of restriction of feting data is considered as enhancement.
     public List<Enrollment> getEnrollmentList(){
         return enrollmentRepository.findAll();
     }
@@ -53,5 +51,9 @@ public class StudentEnrollmentReadService {
 
     public List<Enrollment> findEnrollmentByStudent(Student student) {
         return enrollmentRepository.findByStudent(student);
+    }
+
+    public boolean existsEnrollmentByCourseIdAndStudentId(long courseId, long studentId) {
+        return enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId);
     }
 }

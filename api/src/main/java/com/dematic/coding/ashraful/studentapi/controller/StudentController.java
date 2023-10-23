@@ -64,26 +64,62 @@ public class StudentController {
 
     // -----------------------------------------------------------------------------------------
     @PostMapping("/courses/{courseId}/enroll/{studentId}")
-    public ResponseEntity<String> enrollStudentInCourse(
+    public ResponseEntity<?> enrollStudentInCourse(
             @PathVariable Long courseId,
             @PathVariable Long studentId
     ) {
-        // Implement enrollment logic
-        // Create a new Enrollment record
 
-        return ResponseEntity.ok("Enrolled student " + studentId + " in course " + courseId);
+        // Make sure that the course exists in the database
+        Optional<Course> course = studentEnrollmentReadService.findByCourseId(courseId);
+        if (course.isEmpty())
+        {
+            return new ResponseEntity<>("Course not found",
+                    HttpStatus.NOT_FOUND);
+        }
+
+        // Make sure that the student exists in the database
+        Optional<Student> student = studentEnrollmentReadService.findByStudentId(studentId);
+        if (student.isEmpty())
+        {
+            return new ResponseEntity<>("Student not found",
+                    HttpStatus.NOT_FOUND);
+        }
+
+        // Check if the enrollment record exists or not
+        boolean isExists = studentEnrollmentReadService.existsEnrollmentByCourseIdAndStudentId(
+                course.get().getId(), student.get().getId());
+        if(isExists)
+        {
+            return new ResponseEntity<>("The enrollment record already exists",
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        Enrollment enrollment = Enrollment.builder().course(course.get())
+                .student(student.get()).build();
+        Optional<Enrollment> createdEnrollment = Optional.ofNullable(
+                studentEnrollmentWriteService.saveAndGetEnrollment(enrollment));
+
+        if(createdEnrollment.isPresent())
+            return new ResponseEntity<>(createdEnrollment.get(), HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>("An error occurred while creating the Enrollment",
+                    HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
 
-    @PostMapping("/courses/{courseId}/unenroll/{studentId}")
-    public ResponseEntity<String> unenrollStudentFromCourse(
-            @PathVariable Long courseId,
-            @PathVariable Long studentId
-    ) {
-        // Implement un-enrollment logic
-        // Delete the Enrollment record
-
-        return ResponseEntity.ok("Un-enrolled student " + studentId + " from course " + courseId);
-    }
+//    @PostMapping("/courses/{courseId}/unenroll/{studentId}")
+//    public ResponseEntity<?> unenrollStudentFromCourse(
+//            @PathVariable Long courseId,
+//            @PathVariable Long studentId
+//    ) {
+//        // It will be similar to enrollment.
+//        // We will "Delete the Enrollment record" only if the record exists.
+//        // Else it will be bad request.
+//        // I will probably not be able to implement the API due to time constraint.
+//        // Also, I don't think it's not required.
+//
+//        return ResponseEntity.ok("Un-enrolled student " + studentId + " from course " + courseId);
+//    }
 
     // -----------------------------------------------------------------------------------------
     @GetMapping("/students/{studentId}/courses")

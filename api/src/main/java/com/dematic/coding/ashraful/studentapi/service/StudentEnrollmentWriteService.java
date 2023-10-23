@@ -1,6 +1,7 @@
 package com.dematic.coding.ashraful.studentapi.service;
 
 import com.dematic.coding.ashraful.studentapi.model.Course;
+import com.dematic.coding.ashraful.studentapi.model.Enrollment;
 import com.dematic.coding.ashraful.studentapi.model.Student;
 import com.dematic.coding.ashraful.studentapi.repository.CourseRepository;
 import com.dematic.coding.ashraful.studentapi.repository.EnrollmentRepository;
@@ -35,9 +36,19 @@ public class StudentEnrollmentWriteService {
         try {
             return courseRepository.save(course);
         } catch (Exception e) {
-            log.error("StudentEnrollmentWriteService::saveAndGetCourse error happened. Details: " + e.getMessage());
+            log.error("StudentEnrollmentWriteService::saveAndGetCourse error happened. Details: "
+                    + e.getMessage());
             return null;
         }
     }
 
+    public Enrollment saveAndGetEnrollment(Enrollment enrollment){
+        try {
+            return enrollmentRepository.save(enrollment);
+        } catch (Exception e) {
+            log.error("StudentEnrollmentWriteService::saveAndGetEnrollment error happened. Details: "
+                    + e.getMessage());
+            return null;
+        }
+    }
 }

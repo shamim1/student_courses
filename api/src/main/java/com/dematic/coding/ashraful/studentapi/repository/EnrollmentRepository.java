@@ -13,4 +13,6 @@ import java.util.List;
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
     @Query("SELECT e FROM Enrollment e WHERE e.student = :student")
     List<Enrollment> findByStudent(@Param("student") Student student);
+
+    boolean existsByCourseIdAndStudentId(Long courseId, Long studentId);
 }
