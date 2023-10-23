@@ -58,9 +58,10 @@ public class StudentController {
     }
 
     // getAllStudents
-
     // getAllCourses
-
+    // I will not be able to implement those API calls due to time constraint.
+    // Also, I don't think it's not required. They should be very easy to implement.
+    // I am keeping few hours for safety reasons.
 
     // -----------------------------------------------------------------------------------------
     @PostMapping("/courses/{courseId}/enroll/{studentId}")
@@ -116,7 +117,7 @@ public class StudentController {
 //        // We will "Delete the Enrollment record" only if the record exists.
 //        // Else it will be bad request.
 //        // I will probably not be able to implement the API due to time constraint.
-//        // Also, I don't think it's not required.
+//        // Also, I don't think it's not required. It should be easy to implement.
 //
 //        return ResponseEntity.ok("Un-enrolled student " + studentId + " from course " + courseId);
 //    }
