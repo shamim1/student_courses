@@ -1,0 +1,35 @@
+
+version: '3'
+
+services:
+  db:
+    build:
+      context: db  # Specify the directory containing the Dockerfile
+      dockerfile: Dockerfile  # Name of the Dockerfile
+    container_name: university-db-container
+    restart: always 
+    environment:
+      POSTGRES_USER: ashraful
+      POSTGRES_PASSWORD: secretpassword # We need to get the password from "secrets" section. We can do that later.
+      POSTGRES_DB: university_courses
+    ports:
+      - "5432:5432"
+    networks:
+      - private
+      - public # We can remove public access if we want the DB to be secure and not accessiable outside the api.
+  api:
+    build:
+      context: api
+      dockerfile: Dockerfile
+    container_name: university-api-container
+    ports:
+      - 8080:8080
+    networks:
+      - public
+      - private
+    depends_on:
+      - db
+    restart: unless-stopped
+networks:
+  public:
+  private:
