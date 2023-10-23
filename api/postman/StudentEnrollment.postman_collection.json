@@ -1,0 +1,109 @@
+{
+	"info": {
+		"_postman_id": "15586a99-106e-4dd7-a26f-7d6d527b3c83",
+		"name": "StudentEnrollment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29496375"
+	},
+	"item": [
+		{
+			"name": "CreateStudent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"first1\",\n    \"lastName\": \"last1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/v1.1/students",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1.1",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCourse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"courseName\": \"courseName1\",\n    \"courseCode\": \"courseCode1\",\n    \"courseDescription\": \"courseDescription1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/v1.1/courses",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1.1",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "enrollCourse",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/v1.1/courses/1/enroll/1",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1.1",
+						"courses",
+						"1",
+						"enroll",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEnrollmentInformation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/v1.1/students/1/courses",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"v1.1",
+						"students",
+						"1",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
